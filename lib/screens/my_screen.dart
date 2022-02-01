@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_examples/screens/profile_form_screen.dart';
 
 class MyScreen extends StatelessWidget {
   const MyScreen({Key? key}) : super(key: key);
@@ -17,11 +18,16 @@ class MyScreen extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: const [
-            Text(
-              "프로필",
-              textAlign: TextAlign.center,
-            )
+          children: [
+            TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ProfileFormScreen()),
+                  );
+                },
+                child: const Text("프로필"))
           ],
         ),
       ),
