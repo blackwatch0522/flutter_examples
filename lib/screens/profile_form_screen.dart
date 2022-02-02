@@ -12,12 +12,15 @@ class _ProfileFormScreenState extends State<ProfileFormScreen> {
   final form = FormGroup({
     'name': FormControl<String>(validators: [Validators.required]),
     'age': FormControl<int>(validators: [Validators.required]),
+    'email': FormControl<String>(
+        validators: [Validators.required, Validators.email]),
   });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Profile Form Screen")),
+      resizeToAvoidBottomInset: false,
       body: Container(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -34,6 +37,7 @@ class _ProfileFormScreenState extends State<ProfileFormScreen> {
                         children: [
                           Text("이름: ${form.control('name').value ?? ""}"),
                           Text("나이: ${form.control('age').value ?? ""}"),
+                          Text("이메일: ${form.control('email').value ?? ""}"),
                         ],
                       );
                     },
@@ -42,13 +46,18 @@ class _ProfileFormScreenState extends State<ProfileFormScreen> {
                       formControlName: 'name',
                       decoration: const InputDecoration(labelText: "이름"),
                       validationMessages: (control) => {
-                            "requiredCustom": "이름을 입력해 주세요.",
+                            "required": "이름을 입력해 주세요.",
                           }),
                   ReactiveTextField(
                       formControlName: 'age',
                       decoration: const InputDecoration(labelText: "나이"),
                       validationMessages: (control) =>
-                          {"requiredCustom": "나이를 입력해 주세요."}),
+                          {"required": "나이를 입력해 주세요."}),
+                  ReactiveTextField(
+                      formControlName: 'email',
+                      decoration: const InputDecoration(labelText: "이메일"),
+                      validationMessages: (control) =>
+                          {"required": "이메일을 입력해 주세요."}),
                   ReactiveFormConsumer(builder: (context, form, child) {
                     return TextButton(
                         style: ButtonStyle(
@@ -64,18 +73,23 @@ class _ProfileFormScreenState extends State<ProfileFormScreen> {
                                     builder: (BuildContext context) =>
                                         AlertDialog(
                                           title: const Text("저장완료"),
-                                          content: Container(
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.stretch,
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                Text(
-                                                    "이름: ${form.control('name').value ?? ""}"),
-                                                Text(
-                                                    "나이: ${form.control('age').value ?? ""}"),
-                                              ],
-                                            ),
+                                          content: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.stretch,
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Text(
+                                                  "이름: ${form.control('name').value ?? ""}"),
+                                              Text(
+                                                  "나이: ${form.control('age').value ?? ""}"),
+                                              Text(
+                                                  "이메일: ${form.control('email').value ?? ""}"),
+                                              TextButton(
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  child: const Text("확인"))
+                                            ],
                                           ),
                                         ));
                               }
@@ -89,19 +103,5 @@ class _ProfileFormScreenState extends State<ProfileFormScreen> {
         ),
       ),
     );
-  }
-}
-
-class EditDoneDialog extends StatefulWidget {
-  const EditDoneDialog({Key? key}) : super(key: key);
-
-  @override
-  _EditDoneDialogState createState() => _EditDoneDialogState();
-}
-
-class _EditDoneDialogState extends State<EditDoneDialog> {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
   }
 }

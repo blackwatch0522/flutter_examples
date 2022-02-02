@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_examples/screens/my_screen.dart';
+import 'package:flutter_examples/screens/users_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -9,17 +10,30 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text("Flutter Example")),
       body: Container(
-        alignment: Alignment.center,
-        child: IconButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const MyScreen()),
-            );
-          },
-          icon: const Icon(Icons.person),
-        ),
-      ),
+          alignment: Alignment.center,
+          child: Column(
+            children: [
+              IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const MyScreen()),
+                  );
+                },
+                icon: const Icon(Icons.person),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const UsersScreen()),
+                  );
+                },
+                child: const Text("유져 목록"),
+              ),
+            ],
+          )),
     );
   }
 }
