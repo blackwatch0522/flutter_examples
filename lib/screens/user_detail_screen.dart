@@ -48,7 +48,12 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
                               Text(snapshot.data?.name ?? ""),
-                              Text(snapshot.data?.email ?? "")
+                              Text(snapshot.data?.email ?? ""),
+                              TextButton(
+                                  onPressed: () {
+                                    userFuture = fetch();
+                                  },
+                                  child: const Text("새로고침"))
                             ],
                           )
                         : const Center(
