@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_examples/models/user.dart';
-import 'package:flutter_examples/screens/user_detail_screen.dart';
 
 class UsersScreen extends StatefulWidget {
   const UsersScreen({Key? key}) : super(key: key);
@@ -67,14 +66,8 @@ class _UsersScreenState extends State<UsersScreen> {
                       title: Text(data[index].name ?? "John Doe"),
                       subtitle: Text(data[index].email ?? "이메일 없음"),
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => UserDetailScreen(
-                              userId: data[index].id!,
-                            ),
-                          ),
-                        );
+                        Navigator.pushNamed(context, 'users/detail',
+                            arguments: {"id": data[index].id.toString()});
                       },
                     );
                   },
